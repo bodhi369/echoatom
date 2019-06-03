@@ -1,0 +1,1240 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "API Doc for echoAtom v1",
+    "title": "Echo Gorm Casbin restful API",
+    "contact": {
+      "name": "bodhi369",
+      "url": "http://bodhi369.com",
+      "email": "bodhi369@example.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "0.0.1"
+  },
+  "host": "localhost:8080",
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "auth"
+        ],
+        "summary": "user login",
+        "operationId": "login",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/credentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/loginResp"
+          }
+        }
+      }
+    },
+    "/login/exit": {
+      "post": {
+        "description": "logout",
+        "tags": [
+          "auth"
+        ],
+        "summary": "user logout",
+        "operationId": "logout"
+      }
+    },
+    "/refresh/{token}": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "auth"
+        ],
+        "summary": "refresh user token",
+        "operationId": "refresh",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "refresh token",
+            "name": "token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/refreshResp"
+          }
+        }
+      }
+    },
+    "/v1/menus": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "menu"
+        ],
+        "summary": "list menus",
+        "operationId": "menuList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "description": "page",
+            "name": "page",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "code",
+            "name": "code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/menuResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "menu"
+        ],
+        "summary": "create menu",
+        "operationId": "menuCreate",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RespMenu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/menuidResp"
+          }
+        }
+      }
+    },
+    "/v1/menus/{id}": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "menu"
+        ],
+        "summary": "view menu",
+        "operationId": "menuView",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "menuid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/menuidResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "menu"
+        ],
+        "summary": "update menu",
+        "operationId": "menuUpdated",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "menuid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RespMenu"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/menuidResp"
+          }
+        }
+      },
+      "delete": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "menu"
+        ],
+        "summary": "delete menu",
+        "operationId": "menuDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "menuid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/roles": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "role"
+        ],
+        "summary": "list roles",
+        "operationId": "roleList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "description": "page",
+            "name": "page",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "code",
+            "name": "code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/roleResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "role"
+        ],
+        "summary": "create role",
+        "operationId": "roleCreate",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RespRole"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/roleidResp"
+          }
+        }
+      }
+    },
+    "/v1/roles/{id}": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "role"
+        ],
+        "summary": "view role",
+        "operationId": "roleView",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "roleid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/roleidResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "role"
+        ],
+        "summary": "update role",
+        "operationId": "roleUpdated",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "roleid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RespRole"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/roleidResp"
+          }
+        }
+      },
+      "delete": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "role"
+        ],
+        "summary": "delete role",
+        "operationId": "roleDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "roleid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "list users",
+        "operationId": "userList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "description": "page",
+            "name": "page",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "code",
+            "name": "code",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "name",
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/userResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "create user",
+        "operationId": "userCreate",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ReqCreateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/usercreateResp"
+          }
+        }
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "view user",
+        "operationId": "userView",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/useridResp"
+          }
+        }
+      },
+      "post": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "update user",
+        "operationId": "userUpdated",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ReqUpdateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/usercreateResp"
+          }
+        }
+      },
+      "delete": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "delete user",
+        "operationId": "userDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/users/{id}/disable": {
+      "patch": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "disable user",
+        "operationId": "userDisable",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/v1/users/{id}/enable": {
+      "patch": {
+        "description": "Error Not Found (404) will be returned",
+        "tags": [
+          "user"
+        ],
+        "summary": "enable user",
+        "operationId": "userEnable",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "userid",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ReqCreateRole": {
+      "description": "ReqCreateRole ReqCreateRole",
+      "type": "object",
+      "properties": {
+        "roleid": {
+          "type": "string",
+          "x-go-name": "Roleid"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "ReqCreateRoles": {
+      "description": "ReqCreateRoles ReqCreateRoles",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ReqCreateRole"
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "ReqCreateUser": {
+      "description": "ReqCreateUser ReqCreateUser",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "x-go-name": "Active"
+        },
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "nick_name": {
+          "type": "string",
+          "x-go-name": "NickName"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "password_confirm": {
+          "type": "string",
+          "x-go-name": "PasswordConfirm"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        },
+        "roles": {
+          "$ref": "#/definitions/ReqCreateRoles"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "ReqUpdateUser": {
+      "description": "ReqUpdateUser ReqUpdateUser",
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "x-go-name": "Active"
+        },
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "nick_name": {
+          "type": "string",
+          "x-go-name": "NickName"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        },
+        "roles": {
+          "$ref": "#/definitions/ReqCreateRoles"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespMenu": {
+      "description": "RespMenu RespMenu",
+      "type": "object",
+      "properties": {
+        "Resources": {
+          "$ref": "#/definitions/RespMenuResources"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "hidden": {
+          "type": "boolean",
+          "x-go-name": "Hidden"
+        },
+        "icon": {
+          "type": "string",
+          "x-go-name": "Icon"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "parentid": {
+          "type": "string",
+          "x-go-name": "Parentid"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        },
+        "router": {
+          "type": "string",
+          "x-go-name": "Router"
+        },
+        "seq": {
+          "type": "string",
+          "x-go-name": "Seq"
+        },
+        "usercode": {
+          "type": "string",
+          "x-go-name": "Usercode"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespMenuResource": {
+      "description": "RespMenuResource RespMenuResource",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "method": {
+          "type": "string",
+          "x-go-name": "Method"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "path": {
+          "type": "string",
+          "x-go-name": "Path"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespMenuResources": {
+      "description": "RespMenuResources RespMenuResources",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RespMenuResource"
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespRole": {
+      "description": "RespRole 返回",
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ID": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "menus": {
+          "$ref": "#/definitions/RespRoleMenus"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        },
+        "seq": {
+          "type": "string",
+          "x-go-name": "Seq"
+        },
+        "usercode": {
+          "type": "string",
+          "x-go-name": "Usercode"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespRoleMenu": {
+      "description": "RespRoleMenu 返回",
+      "type": "object",
+      "properties": {
+        "Resources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "menuid": {
+          "type": "string",
+          "x-go-name": "Menuid"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespRoleMenus": {
+      "description": "RespRoleMenus 菜单",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RespRoleMenu"
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "RespUser": {
+      "description": "RespUser RespUser",
+      "type": "object",
+      "items": {
+        "$ref": "#/definitions/SUserRole"
+      },
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DeletedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ID": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "active": {
+          "type": "boolean",
+          "x-go-name": "Active"
+        },
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "last_login": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastLogin"
+        },
+        "last_password_change": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastPasswordChange"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "nick_name": {
+          "type": "string",
+          "x-go-name": "NickName"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "SRole": {
+      "description": "SRole 角色",
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DeletedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ID": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "recid": {
+          "type": "string",
+          "x-go-name": "Recid"
+        },
+        "seq": {
+          "type": "string",
+          "x-go-name": "Seq"
+        },
+        "usercode": {
+          "type": "string",
+          "x-go-name": "Usercode"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "SUserRole": {
+      "description": "SUserRole 用户对应的角色",
+      "type": "object",
+      "properties": {
+        "CreatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DeletedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ID": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "UpdatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "roleid": {
+          "type": "string",
+          "x-go-name": "Roleid"
+        },
+        "userid": {
+          "type": "string",
+          "x-go-name": "Userid"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/utl/schemago"
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "x-go-name": "Code"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/bodhi369/echoatom/pkg/api/auth/transport"
+    }
+  },
+  "responses": {
+    "loginResp": {
+      "description": "Login response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "expires": {
+            "type": "string",
+            "x-go-name": "Expires"
+          },
+          "refresh_token": {
+            "type": "string",
+            "x-go-name": "RefreshToken"
+          },
+          "token": {
+            "type": "string",
+            "x-go-name": "Token"
+          }
+        }
+      }
+    },
+    "menuResp": {
+      "description": "menu response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Resp": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/RespMenu"
+            }
+          }
+        }
+      }
+    },
+    "menuidResp": {
+      "description": "menu id response",
+      "schema": {
+        "$ref": "#/definitions/RespMenu"
+      }
+    },
+    "refreshResp": {
+      "description": "Token refresh response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "expires": {
+            "type": "string",
+            "x-go-name": "Expires"
+          },
+          "token": {
+            "type": "string",
+            "x-go-name": "Token"
+          }
+        }
+      }
+    },
+    "roleResp": {
+      "description": "role response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Resp": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/SRole"
+            }
+          }
+        }
+      }
+    },
+    "roleidResp": {
+      "description": "role id response",
+      "schema": {
+        "$ref": "#/definitions/RespRole"
+      }
+    },
+    "userResp": {
+      "description": "user response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Page": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Resp": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/RespUser"
+            }
+          }
+        }
+      }
+    },
+    "usercreateResp": {
+      "description": "user create response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "DeletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ID": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "UpdatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "address": {
+            "type": "string",
+            "x-go-name": "Address"
+          },
+          "code": {
+            "type": "string",
+            "x-go-name": "Code"
+          },
+          "email": {
+            "type": "string",
+            "x-go-name": "Email"
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "LastLogin"
+          },
+          "last_password_change": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "LastPasswordChange"
+          },
+          "mobile": {
+            "type": "string",
+            "x-go-name": "Mobile"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "nick_name": {
+            "type": "string",
+            "x-go-name": "NickName"
+          },
+          "phone": {
+            "type": "string",
+            "x-go-name": "Phone"
+          },
+          "recid": {
+            "type": "string",
+            "x-go-name": "Recid"
+          }
+        }
+      }
+    },
+    "useridResp": {
+      "description": "user id response",
+      "schema": {
+        "type": "object",
+        "items": {
+          "$ref": "#/definitions/SUserRole"
+        },
+        "properties": {
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "DeletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ID": {
+            "type": "integer",
+            "format": "uint64"
+          },
+          "UpdatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "address": {
+            "type": "string",
+            "x-go-name": "Address"
+          },
+          "code": {
+            "type": "string",
+            "x-go-name": "Code"
+          },
+          "email": {
+            "type": "string",
+            "x-go-name": "Email"
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "LastLogin"
+          },
+          "last_password_change": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "LastPasswordChange"
+          },
+          "mobile": {
+            "type": "string",
+            "x-go-name": "Mobile"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "nick_name": {
+            "type": "string",
+            "x-go-name": "NickName"
+          },
+          "phone": {
+            "type": "string",
+            "x-go-name": "Phone"
+          },
+          "recid": {
+            "type": "string",
+            "x-go-name": "Recid"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearer": {
+      "description": "Bearer xxx",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ]
+}

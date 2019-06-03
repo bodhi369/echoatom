@@ -1,0 +1,1 @@
+swagger generate spec -b ./cmd/api -o ./assets/swaggerui/swagger.json --scan-models

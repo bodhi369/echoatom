@@ -1,0 +1,39 @@
+database:
+  driver_name: mssql
+  psn: server=192.168.1.14;user id=sa;password=9999;database=casbin_init;encrypt=disable  
+  log_queries: true
+  timeout_seconds: 5
+
+server:
+  port: :8080
+  debug: true
+  read_timeout_seconds: 10
+  write_timeout_seconds: 5
+
+jwt:
+  secret: jwtrealm # Change this value
+  duration_minutes: 15
+  refresh_duration_minutes: 15
+  max_refresh_minutes: 1440
+  signing_algorithm: HS256
+
+application:
+  min_password_strength: 1
+  swagger_ui_path: assets/swaggerui
+
+casbinmode:
+  mode_text: |
+    [request_definition]
+    r = sub, obj, act
+
+    [policy_definition]
+    p = sub, obj, act
+
+    [role_definition]
+    g = _, _
+
+    [policy_effect]
+    e = some(where (p.eft == allow))
+
+    [matchers]
+    m = g(r.sub, p.sub) && keyMatch(r.obj, p.obj) && (r.act == p.act || p.act == "*")
